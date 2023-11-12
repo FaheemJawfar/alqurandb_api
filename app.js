@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 
 const pingServer = () => {
-  axios.get('https://exam-partner-api.onrender.com/')
+  axios.get('https://alqurandb-api.onrender.com/')
   .then((response) => {
     console.log(`Server pinged with status code: ${response.status}`);
   })
