@@ -14,9 +14,6 @@ const port = 3000;
 app.use(morgan(':remote-addr :remote-user :method :url :status :res[content-length] - :response-time ms'));
 
 
-const dataFilePath = path.join(__dirname, 'data.json');
-
-
 //Initialize app
 app.get('/', (req, res) => {
   res.send('Welcome to AlQuranDB API');
@@ -39,6 +36,25 @@ const pingServer = () => {
 cron.schedule('*/14 * * * *', () => {
   pingServer();
 });
+
+
+
+// Endpoint to download a file by passing filename
+app.get('/download/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'alkitab_translations', filename); // Update 'your-folder' with the actual folder name
+
+  // Check if the file exists
+  if (fs.existsSync(filePath)) {
+    // Set the Content-Disposition header to prompt the user to download the file
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+    res.sendFile(filePath);
+  } else {
+    // Return 404 if the file does not exist
+    res.status(404).send('File not found');
+  }
+});
+
 
 
 
