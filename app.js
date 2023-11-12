@@ -46,8 +46,11 @@ app.get('/download/:filename', (req, res) => {
 
   // Check if the file exists
   if (fs.existsSync(filePath)) {
+    const stat = fs.statSync(filePath);
+
     // Set the Content-Disposition header to prompt the user to download the file
     res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+    res.setHeader('Content-Length', stat.size); // Set Content-Length header
     res.sendFile(filePath);
   } else {
     // Return 404 if the file does not exist
