@@ -8,6 +8,11 @@ const router = express.Router();
 // Apply middleware
 router.use(loggingMiddleware);
 
+// Welcome endpoint
+router.get('/', (req, res) => {
+    res.send('Welcome to AlQuranDB API');
+  });
+
 // Use specific routes
 router.use('/download', downloadRoutes);
 router.use('/quran_translations', quranTranslationsRoutes);
