@@ -60,6 +60,26 @@ app.get('/download/:filename', (req, res) => {
 
 
 
+// Get Quran Translations in XML format.
+app.get('/quran_translations/xml/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'quran_translations/xml', filename);
+
+  // Check if the file exists
+  if (fs.existsSync(filePath)) {
+    const stat = fs.statSync(filePath);
+
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+    res.setHeader('Content-Length', stat.size); // Set Content-Length header
+    res.sendFile(filePath);
+  } else {
+    // Return 404 if the file does not exist
+    res.status(404).send('File not found');
+  }
+});
+
+
+
 
 // Start the server
 app.listen(port, () => {
