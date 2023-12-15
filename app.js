@@ -42,7 +42,7 @@ cron.schedule('*/14 * * * *', () => {
 // Endpoint to download a file by passing filename
 app.get('/download/:filename', (req, res) => {
   const filename = req.params.filename;
-  const filePath = path.join(__dirname, 'alkitab_translations', filename); // Update 'your-folder' with the actual folder name
+  const filePath = path.join(__dirname, 'quran_translations/xml', filename); // Update 'your-folder' with the actual folder name
 
   // Check if the file exists
   if (fs.existsSync(filePath)) {
