@@ -8,7 +8,7 @@ const port = 3000;
 
 app.use(routes);
 
-// Function to ping a remote server using Axios
+// Prevent server from sleeping
 const pingServer = () => {
   axios.get('https://alqurandb-api.onrender.com/')
     .then((response) => {
